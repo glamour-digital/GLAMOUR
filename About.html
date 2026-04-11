@@ -91,6 +91,24 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        .topbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+           background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            box-sizing: border-box;
+            border-bottom: none;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 20px; text-decoration: none; }
+        .logo-img { height: 45px; width: auto; filter: drop-shadow(0 0 10px var(--primary-gold)); }
+
         .feature-card {
             background: #0a0a0a;
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -98,6 +116,89 @@
             padding: 24px;
             margin-bottom: 20px;
         }
+        .topbar-controls { display: flex; align-items: center; gap: 15px; }
+
+.control-btn {
+    width: 40px; height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    cursor: pointer; font-size: 18px; transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+
+/* Expandable Menu Panel */
+.expandable-menu {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: radial-gradient(circle at top, #1a1500 0%, #000000 100%);
+    z-index: 1000; padding: 100px 5% 40px; box-sizing: border-box;
+    transform: translateY(-100%); opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s;
+}
+
+.expandable-menu.is-active { transform: translateY(0); opacity: 1; }
+
+.menu-link {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 0; color: #fff; text-decoration: none;
+    font-size: 19px; font-weight: 700; cursor: pointer;
+}
+
+/* Pages Dropdown & Faded Lines */
+.dropdown-menu {
+    max-height: 0; overflow: hidden; list-style: none; padding: 0;
+    transition: max-height 0.4s ease-out;
+}
+
+.dropdown-menu.expanded { max-height: 500px; }
+
+.dropdown-menu li {
+    border-bottom: 1px solid;
+    border-image: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.2), transparent) 1;
+}
+
+.dropdown-link {
+    display: block; padding: 18px 25px; color: #aaa; text-decoration: none;
+}
+
+/* Header inside the slide-down menu */
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.menu-content {
+    margin-top: px; /* Space so links don't hit the menu header */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Thin icon styling again to ensure it stays light */
+.menu-header .control-btn i {
+    font-size: 18px;
+    font-weight: 300;
+    opacity: 0.8;
+}
+
+/* Arrow rotation for the "Pages" dropdown */
+.submenu-trigger i {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.submenu-trigger.active i {
+    transform: rotate(180deg);
+}
+
     </style>
 </head>
 <body>
