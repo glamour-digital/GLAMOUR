@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Privacy Policy | Glamour</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        :root {
+            --glam-gold: #d4af37;
+            --glam-black: #050505;
+        }
+
+        body { 
+            background-color: var(--glam-black); 
+            color: #ffffff; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            margin: 0; padding: 0;
+            line-height: 1.7;
+        }
+
+        .gold-text {
+            color: var(--glam-gold);
+            background: linear-gradient(135deg, #f5e050 0%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-container {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .content-section {
+            padding: 40px 24px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .policy-tag {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--glam-gold);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        .policy-block {
+            margin-bottom: 40px;
+        }
+
+        .policy-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #f3f4f6;
+        }
+
+        .policy-text {
+            color: #9ca3af;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--glam-gold);
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        #loader {
+            position: fixed; inset: 0; background: var(--glam-black);
+            z-index: 9999; display: flex; align-items: center; justify-content: center;
+        }
+
+        .spinner {
+            width: 24px; height: 24px; border: 2px solid rgba(212, 175, 55, 0.1);
+            border-top-color: var(--glam-gold); border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .footer-minimal {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 40px;
+            text-align: center;
+        }
+         .topbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+           background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            box-sizing: border-box;
+            border-bottom: none;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 20px; text-decoration: none; }
+        .logo-img { height: 45px; width: auto; filter: drop-shadow(0 0 10px var(--primary-gold)); }
+        .topbar-controls { display: flex; align-items: center; gap: 15px; }
+
+.control-btn {
+    width: 40px; height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    cursor: pointer; font-size: 18px; transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+
+/* Expandable Menu Panel */
+.expandable-menu {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: radial-gradient(circle at top, #1a1500 0%, #000000 100%);
+    z-index: 1000; padding: 100px 5% 40px; box-sizing: border-box;
+    transform: translateY(-100%); opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s;
+}
+
+.expandable-menu.is-active { transform: translateY(0); opacity: 1; }
+
+.menu-link {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 0; color: #fff; text-decoration: none;
+    font-size: 19px; font-weight: 700; cursor: pointer;
+}
+
+/* Pages Dropdown & Faded Lines */
+.dropdown-menu {
+    max-height: 0; overflow: hidden; list-style: none; padding: 0;
+    transition: max-height 0.4s ease-out;
+}
+
+.dropdown-menu.expanded { max-height: 500px; }
+
+.dropdown-menu li {
+    border-bottom: 1px solid;
+    border-image: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.2), transparent) 1;
+}
+
+.dropdown-link {
+    display: block; padding: 18px 25px; color: #aaa; text-decoration: none;
+}
+
+/* Header inside the slide-down menu */
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.menu-content {
+    margin-top: px; /* Space so links don't hit the menu header */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Thin icon styling again to ensure it stays light */
+.menu-header .control-btn i {
+    font-size: 18px;
+    font-weight: 300;
+    opacity: 0.8;
+}
+
+/* Arrow rotation for the "Pages" dropdown */
+.submenu-trigger i {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.submenu-trigger.active i {
+    transform: rotate(180deg);
+}
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Minimal Header -->
+    <div class="topbar">
+    <a href="index.html" class="logo-container">
+        <img src="logo.png" alt="G" class="logo-img">
+    </a
+              
+            </div>
+            <a href="index.html" class="text-white/40 text-[10px] font-bold uppercase tracking-widest border border-white/10 px-3 py-1 rounded-full">Close</a>
+        </div>
+    </nav>
+
+    <main class="content-section">
+        <div class="policy-tag">Secure & Private</div>
+        <h1 class="text-4xl font-extrabold gold-text mb-10 tracking-tight leading-tight">Privacy Policy</h1>
+
+        <div class="policy-block">
+            <h2 class="policy-title">Data Collection</h2>
+            <p class="policy-text">
+                Glamour is a digital lifestyle platform. We collect information you provide when creating an account, including your basic profile details, to help you connect with European counterparts and facilitate payments in Euros and Pounds.
+            </p>
+        </div>
+
+        <div class="policy-block">
+            <h2 class="policy-title">Our Commitment</h2>
+            <p class="policy-text">
+                Your information is kept secure according to our global privacy standards. We ensure that your digital participation is protected, and your interactions with foreign counterparts are encrypted and private.
+            </p>
+        </div>
+
+        <div class="policy-block">
+            <h2 class="policy-title">Usage of Content</h2>
+            <p class="policy-text">
+                Content you share via Glam Lifestyle, Glam Cuisine, or Glam Realtime is used solely to enhance your earning potential and provide a seamless cultural exchange experience. We do not sell your personal media to third parties.
+            </p>
+        </div>
+
+        <div class="policy-block">
+            <h2 class="policy-title">AI & Technology</h2>
+            <p class="policy-text">
+                We focus on responsible use of technology. Our Lingua AI and earning tracking systems are designed to process data efficiently while maintaining the highest level of user anonymity where possible.
+            </p>
+        </div>
+
+        <div class="policy-block">
+            <h2 class="policy-title">User Rights</h2>
+            <p class="policy-text">
+                Thousands of users trust Glamour because we give you full control over your profile. You have the right to update, delete, or request a copy of your data at any time through our support channels.
+            </p>
+        </div>
+
+        <a href="index.html" class="back-link">
+            <i class="fas fa-chevron-left text-[10px]"></i>
+            <span>Back to Home</span>
+        </a>
+
+        <div class="footer-minimal">
+            <p class="text-[9px] text-gray-700 font-bold uppercase tracking-[0.4em]">© 2026 GLAMOUR PREMIUM NETWORK • ALL RIGHTS RESERVED</p>
+        </div>
+    </main>
+
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 500);
+        });
+    </script>
+</body>
+</html>
