@@ -497,8 +497,7 @@ select option { background: #1a1a1a; color: var(--white); }
 <!-- SUCCESS OVERLAY -->
 <div class="success-overlay" id="successOverlay" role="alert" aria-live="assertive">
   <div class="success-icon" aria-hidden="true">✦</div>
-  <h2>Welcome to Glamour!</h2>
-  <p>Your creator account is being activated...</p>
+  <h2>Account Created Successfully!</h2>
   <p class="success-sub">You will be redirected to your dashboard shortly.</p>
 </div>
 
@@ -871,7 +870,7 @@ select option { background: #1a1a1a; color: var(--white); }
       } catch (err) {
         alert(err.message);
         btn.classList.remove('loading');
-        btn.innerText = "JOIN GLAMOUR ELITE";
+        btn.innerText = "PROCEED TO DASHBOARD...";
         btn.disabled = false;
       }
     }, 0);
