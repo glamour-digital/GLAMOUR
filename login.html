@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Elite Access | Glamour Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        
+        :root {
+            --glam-gold: #d4af37;
+            --glam-black: #050505;
+        }
+
+        body { 
+            background-color: var(--glam-black); 
+            color: #ffffff; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            margin: 0; padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .gold-text {
+            background: linear-gradient(135deg, #f5e050 0%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 32px;
+            backdrop-filter: blur(20px);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px 20px 16px 50px;
+            width: 100%;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .input-field:focus {
+            border-color: var(--glam-gold);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(212, 175, 55, 0.6);
+            font-size: 16px;
+        }
+
+        .btn-glam {
+            background: linear-gradient(135deg, #f5e050 0%, #d4af37 100%);
+            color: #000;
+            font-weight: 800;
+            border-radius: 18px;
+            padding: 18px;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-glam:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #statusMsg {
+            text-align: center;
+            font-size: 11px;
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 1rem;
+        }
+
+         .topbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+           background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            box-sizing: border-box;
+            border-bottom: none;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 20px; text-decoration: none; }
+        .logo-img { height: 45px; width: auto; filter: drop-shadow(0 0 10px var(--primary-gold)); }
+        .topbar-controls { display: flex; align-items: center; gap: 15px; }
+
+.control-btn {
+    width: 40px; height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    cursor: pointer; font-size: 18px; transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+
+/* Expandable Menu Panel */
+.expandable-menu {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: radial-gradient(circle at top, #1a1500 0%, #000000 100%);
+    z-index: 1000; padding: 100px 5% 40px; box-sizing: border-box;
+    transform: translateY(-100%); opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s;
+}
+
+.expandable-menu.is-active { transform: translateY(0); opacity: 1; }
+
+.menu-link {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 0; color: #fff; text-decoration: none;
+    font-size: 19px; font-weight: 700; cursor: pointer;
+}
+
+/* Pages Dropdown & Faded Lines */
+.dropdown-menu {
+    max-height: 0; overflow: hidden; list-style: none; padding: 0;
+    transition: max-height 0.4s ease-out;
+}
+
+.dropdown-menu.expanded { max-height: 500px; }
+
+.dropdown-menu li {
+    border-bottom: 1px solid;
+    border-image: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.2), transparent) 1;
+}
+
+.dropdown-link {
+    display: block; padding: 18px 25px; color: #aaa; text-decoration: none;
+}
+
+/* Header inside the slide-down menu */
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.menu-content {
+    margin-top: px; /* Space so links don't hit the menu header */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Thin icon styling again to ensure it stays light */
+.menu-header .control-btn i {
+    font-size: 18px;
+    font-weight: 300;
+    opacity: 0.8;
+}
+
+/* Arrow rotation for the "Pages" dropdown */
+.submenu-trigger i {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.submenu-trigger.active i {
+    transform: rotate(180deg);
+}
+
+/* Update your existing .eye-btn class with this */
+.eye-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%; /* Moves it to the middle */
+    transform: translateY(-50%); /* Perfectly centers it vertically */
+    background: none;
+    border: none;
+    color: var(--glam-gold);
+    cursor: pointer;
+    padding: 5px;
+    font-size: 14px; /* Slightly larger for better visibility */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+}
+
+/* Add padding to the input so text doesn't go under the eye */
+#password {
+    padding-right: 45px; 
+}
+
+.eye-btn:focus {
+    outline: none;
+}
+
+/* Optional: Slight fade when hovering */
+.eye-btn:hover {
+    opacity: 0.8;
+}
+    </style>
+</head>
+<body class="p-6">
+
+    <div class="max-w-md mx-auto w-full">
+        <div class="text-center mb-10">
+            <h1 class="text-5xl font-black italic gold-text uppercase tracking-tighter mb-2">GLAMOUR</h1>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.5em] font-bold">Secure Member Access</p>
+        </div>
+
+        <div class="gold-border-card p-8 shadow-2xl">
+            <form id="loginForm">
+                
+                <div class="input-group">
+                    <i class="fas fa-at input-icon"></i>
+                    <input type="text" id="username" placeholder="Username" class="input-field" required autocomplete="username">
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-shield-halved input-icon"></i>
+                    <input type="password" id="password" placeholder="Password" class="input-field" required autocomplete="current-password">
+                    <button type="button" id="togglePassword" class="eye-btn" aria-label="Toggle password visibility">
+      <i class="fa-solid fa-eye-slash" id="eyeIcon"></i>
+    </button>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-glam mt-4">
+                    Login
+                </button>
+                
+                <div id="statusMsg"></div>
+            </form>
+
+            <div class="text-center mt-8 pt-4 border-t border-zinc-800/50">
+                <p class="text-gray-500 text-[11px] font-bold uppercase tracking-widest">
+                    Don't have an account? 
+                    <a href="register.html" class="gold-text font-black ml-1 border-b border-gold-500/30">sign up Now</a>
+                </p>
+            </div>
+        </div>
+
+        <p class="text-center mt-12 text-[9px] text-zinc-700 font-bold uppercase tracking-[0.3em]">© 2026 Glamour Elite Global Systems</p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Your Exact Config from Signup
+       const firebaseConfig = {
+    apiKey: "AIzaSyCbqBxxyJ7YeYW84-5S4FakUKJuNMnSbp0",
+    authDomain: "glamour-lifestyle.firebaseapp.com",
+    projectId: "glamour-lifestyle",
+    storageBucket: "glamour-lifestyle.firebasestorage.app",
+    messagingSenderId: "359792700648",
+    appId: "1:359792700648:web:9c5cb4f986763fe417ad5d"
+  };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        const loginForm = document.getElementById('loginForm');
+        const status = document.getElementById('statusMsg');
+        const btn = document.getElementById('submitBtn');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // UI Loading
+            btn.disabled = true;
+            btn.innerText = "Verifying Identity...";
+            status.innerText = "";
+
+            const username = document.getElementById('username').value.trim().toLowerCase();
+            const password = document.getElementById('password').value;
+
+            try {
+                // Ensure auth session is active
+                await signInAnonymously(auth);
+
+                // Fetch the user document by ID (Username)
+                const userRef = doc(db, 'users', username);
+                const userSnap = await getDoc(userRef);
+
+                if (!userSnap.exists()) {
+                    throw new Error("Elite profile not found.");
+                }
+
+                const userData = userSnap.data();
+
+                // Simple check: compare passwords
+                if (userData.password === password) {
+                    // Save username to localStorage so Dashboard knows who is logged in
+                    localStorage.setItem('glamour_username', username);
+                    
+                    status.style.color = "#d4af37";
+                    status.innerText = "ACCESS GRANTED. INITIALIZING...";
+                    
+                    // Redirect to your Dashboard
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1200);
+                } else {
+                    throw new Error("Invalid passcode provided.");
+                }
+
+            } catch (error) {
+                console.error("Login Error:", error);
+                status.style.color = "#ff4d4d";
+                status.innerText = error.message.toUpperCase();
+                btn.disabled = false;
+                btn.innerText = "Authorize Entry";
+            }
+        });
+
+        /* ── EYE TOGGLE: Kept your logic ── */
+  document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      if (type === 'password') eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+      else eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+  });
+
+    </script>
+</body>
+</html>
+
+
