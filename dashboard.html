@@ -367,8 +367,8 @@
             systemStatus: "active"
         };
 
-        document.getElementById('userDisplay').innerText = "@" + currentUsername;
-        document.getElementById('refLink').value = window.location.origin + "/index.html?ref=" + currentUsername;
+        document.getElementById('userDisplay').innerText = currentUsername;
+        document.getElementById('refLink').value = window.location.origin + "/auth/signup?ref=" + currentUsername;
 
         const appId = "default-app-id";
         const settingsDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'global');
@@ -407,12 +407,12 @@
             const today = new Date().toISOString().split('T')[0];
 
             if (lastActivity !== today) {
-                let reward = 1000;
+                let reward = 5000;
                 let symbol = "₦";
                 
-                if(userData.country === "Ghana") { symbol = "GHS "; reward = 15; }
-                else if(userData.country === "Cameroon") { symbol = "XAF "; reward = 500; }
-                else if(userData.country === "USA") { symbol = "$"; reward = 0.50; }
+                if(userData.country === "Ghana") { symbol = "GHS "; reward = 75; }
+                else if(userData.country === "Cameroon") { symbol = "XAF "; reward = 2500; }
+                else if(userData.country === "USA") { symbol = "$"; reward = 2.5; }
 
                 document.getElementById('activityValue').innerText = "+" + symbol + reward.toLocaleString();
                 document.getElementById('activityPopup').style.display = 'flex';
@@ -478,7 +478,7 @@ window.resetModal = () => {
 window.sendProof = (platform) => {
     const MSG = encodeURIComponent("Hello, Glamour Admin. Here is my payment receipt please verify and Activate my account.");
     const TG_LINK = "https://t.me/coachfavour01"; 
-    const WA_LINK = "https://wa.me/2348122037366"; 
+    const WA_LINK = "https://wa.me/2348129013848"; 
     
     if(platform === 'Telegram') window.open(`${TG_LINK}?text=${MSG}`);
     else window.open(`${WA_LINK}?text=${MSG}`);
