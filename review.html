@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Confirm Details | GLAMOUR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        
+        :root {
+            --glam-gold: #d4af37;
+            --glam-black: #050505;
+            --glass-white: rgba(255, 255, 255, 0.03);
+            --border-gold: rgba(212, 175, 55, 0.2);
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background: var(--glam-black);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .topbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+           background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            box-sizing: border-box;
+            border-bottom: none;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 20px; text-decoration: none; }
+        .logo-img { height: 40px; width: auto; filter: drop-shadow(0 0 10px var(--primary-gold)); }
+        .topbar-controls { display: flex; align-items: center; gap: 15px; }
+
+.control-btn {
+    width: 40px; height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    cursor: pointer; font-size: 18px; transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-weight: 800;
+            margin-left: 20px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Glass Box for Instructions */
+        .instruction-box {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid var(--border-gold);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        /* Review Row */
+        .review-card {
+            background: var(--glass-white);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* PURE GOLD LABEL - NOT FADED */
+.label { 
+    font-size: 13px; 
+    /* High-intensity Gold Gradient */
+    background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 850;
+    text-transform: uppercase; 
+    letter-spacing: 1.5px; 
+}
+
+/* 5% FADED DETAILS */
+.value { 
+    font-weight: 500; 
+    color: rgba(255, 255, 255, 0.705); /* This is 5% faded (0.95 opacity) */
+    font-size: 14px; 
+}
+
+        .btn-proceed {
+            background: linear-gradient(135deg, #f5e050 0%, #d4af37 100%);
+            color: #000;
+            font-weight: 800;
+            padding: 18px;
+            border-radius: 16px;
+            width: 100%;
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Live Activity Modal Styles - Kept Exact */
+        #activity-feed {
+            position: fixed; bottom: 8px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: rgba(15, 15, 15, 0.9); border: 1px solid var(--border-gold);
+            padding: 12px 20px; border-radius: 50px; z-index: 1000; transition: 0.5s ease;
+            white-space: nowrap; display: flex; align-items: center; gap: 10px;
+        }
+        .show-activity { transform: translateX(-50%) translateY(0) !important; }
+    /* MODERN SPINNER ANIMATION */
+.app-loader {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 215, 0, 0.1); /* Faded gold track */
+    border-top: 3px solid #FFD700;           /* Pure gold moving part */
+    border-radius: 50%;
+    animation: app-spin 0.8s linear infinite; /* Fast, smooth spin */
+}
+
+@keyframes app-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* SHIMMER TEXT */
+.sliding-gold {
+    background: linear-gradient(to right, #d4af37 20%, #f5e050 40%, #f5e050 60%, #d4af37 80%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
+}
+.bg-gold-grad {
+    background: linear-gradient(135deg, #f5e050 0%, #d4af37 100%);
+}
+.gold-text {
+    color: #d4af37;
+}
+</style>
+</head>
+<body>
+
+    <div id="noticeModal" class="fixed inset-0 z-[100] flex items-center justify-center px-6 backdrop-blur-xl bg-black/60 transition-all duration-500">
+    <div class="bg-[#0f0f0f] border border-[var(--border-gold)] rounded-3xl p-8 max-w-md w-full shadow-[0_20px_50px_rgba(212,175,55,0.15)] text-center">
+        <div class="w-16 h-16 bg-gold-grad rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <i class="fas fa-exclamation-triangle text-black text-2xl"></i>
+        </div>
+        
+        <h2 class="text-xl font-black uppercase tracking-tighter mb-4 gold-text">Action Required</h2>
+        
+        <p class="text-gray-300 text-sm leading-relaxed mb-8">
+            To ensure a seamless activation, you are <span class="text-white font-bold">REQUIRED</span> to expand and read the <span class="gold-text font-bold text-[10px] tracking-widest uppercase">"How to verify and activate your account"</span> section before proceeding. This prevents payment complications and ensures your account is verified instantly.
+        </p>
+
+        <button onclick="closeNotice()" class="w-full py-4 bg-gold-grad rounded-xl font-black text-black uppercase text-base tracking-[0.2em] shadow-lg active:scale-95 transition-transform">
+            understood
+        </button>
+    </div>
+</div>
+
+    <div class="topbar">
+    <a href="index.html" class="logo-container">
+        <img src="logo.png" alt="G" class="logo-img">
+    </a>
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="register.html" class="nav-link" style="color: var(--glam-gold)">BACK</a>
+    </div>
+</div>
+
+
+    <div class="px-7 pt-16">
+        <div class="instruction-box">
+            <h3 class="gold-text font-bold text-sm mb-1">⚠️ ACTION REQUIRED</h3>
+            <p class="text-xs text-white/70 leading-relaxed">
+                Confirm your details below. Your <b>Username</b> and <b>Password</b> are vital for account activation. If anything is wrong, go back now!
+            </p>
+        </div>
+
+        <div class="mt-12 mb-8 px-6">
+    <h2 class="text-xl font-extrabold sliding-gold">
+        <div class="app-loader"></div> Review Your Account:
+    </h2>
+</div>
+
+        <div id="review-container">
+            <div class="review-card">
+                <span class="label">Full Name:</span>
+                <span class="value" id="view_fullname">Loading...</span>
+            </div>
+            <div class="review-card">
+                <span class="label">Email:</span>
+                <span class="value" id="view_email">Loading...</span>
+            </div>
+            <div class="review-card">
+                <span class="label">Username:</span>
+                <span class="value" id="view_username">Loading...</span>
+            </div>
+            <div class="review-card">
+                <span class="label">Phone:</span>
+                <span class="value" id="view_phone">Loading...</span>
+            </div>
+            </div>
+        </div>
+
+        <div class="px-7 pt-1">
+        <div class="instruction-box">
+            <h3 class="gold-text font-bold text-sm mb-1">✅ DETAILS CORRECT?</h3>
+            <p class="text-xs text-white/70 leading-relaxed">
+                TAP THE <b>BUTTON BELOW</b> TO MAKE <b>PAYMENT</b> & COMPLETE YOUR ACCOUNT <b>ACTIVATION...
+            </p>
+        </div>
+        
+        <a href="https://checkout.korapay.com/pay/glamour-elite" class="btn-proceed" id="payLink">
+            Proceed to Payment <i class="fas fa-chevron-right ml-2"></i>
+        </a>
+
+        <div class="mt-6 border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-all duration-300">
+    <button onclick="toggleAccordion()" class="w-full p-5 flex justify-between items-center text-left">
+        <span class="text-xs font-bold tracking-widest text-gray-300 uppercase">How to verify and activate your account?</span>
+        <i id="accordion-icon" class="fas fa-arrow-down text-[var(--glam-gold)] transition-transform duration-300"></i>
+    </button>
+    
+    <div id="accordion-content" class="max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-in-out px-5">
+        <div class="bg-blue-600/20 border border-blue-500/30 rounded-xl p-4 mb-5 flex justify-between items-center cursor-pointer active:scale-95 transition-transform" onclick="copyRef()">
+            <div>
+                <p class="text-[10px] text-blue-300 uppercase font-bold mb-1">Your Transaction Ref (Tap to Copy)</p>
+                <p id="glam-ref" class="text-lg font-mono font-bold text-blue-100">GLAM-000000</p>
+            </div>
+            <i class="far fa-copy text-blue-400"></i>
+        </div>
+
+        <div class="space-y-4 text-sm text-gray-300 leading-relaxed pb-6">
+            <p>After clicking the <strong class="text-white uppercase font-black">PROCEED TO PAYMENT</strong> button above and completing your payment successfully on the <strong class="text-white uppercase font-black">KORA GATEWAY</strong>, please return to this page.</p>
+            <p>Tap the <span class="text-blue-400">blue reference box</span> above to copy your unique ID, then click the <strong class="gold-text uppercase font-black">BUTTON BELOW</strong> to finalize your activation.</p>
+            
+           <button onclick="verifyAndGo()" class="w-full py-4 bg-gold-grad rounded-xl font-bold text-black mt-4 uppercase text-xs tracking-widest">
+    Verify Payment Now
+</button>
+        </div>
+    </div>
+</div>
+
+        <p class="text-center text-[10px] text-white/30 mt-4 uppercase tracking-widest">Secured by kora payment Gateway</p>
+    </div>
+
+    <div id="activity-feed">
+        <i id="act-icon" class="fas fa-user-plus text-yellow-500"></i>
+        <div id="activity-text" class="text-xs font-medium"></div>
+    </div>
+
+<script>
+    generateRef();
+
+    window.onload = function() {
+    // 1. PULL THE BUNDLE SAVED FROM REGISTER.HTML
+    const data = JSON.parse(localStorage.getItem('glamour_pending_user')) || {};
+
+    // 2. DISPLAY ON THE SCREEN USING THE BUNDLE DATA
+    document.getElementById('view_fullname').innerText = data.fullName || 'N/A';
+    document.getElementById('view_email').innerText = data.email || 'N/A';
+    document.getElementById('view_username').innerText = data.username || 'N/A';
+    document.getElementById('view_phone').innerText = data.phone || 'N/A';
+    
+    // 3. START FEED
+    setTimeout(cycleActivityFeed, 2000);
+    setInterval(cycleActivityFeed, 10000);
+};
+
+    function toggleView() {
+        const pField = document.getElementById('view_password');
+        if(pField.innerText === '••••••••') {
+            pField.innerText = window.rawPassword;
+        } else {
+            pField.innerText = '••••••••';
+        }
+    }
+
+    // LIVE ACTIVITY LOGIC (Kept exactly as you had it)
+  const ACTIVITIES = [
+    { name: "Chinedu", country: "Nigeria", type: "joined", time: "just now" },
+    { name: "Kofi", country: "Ghana", type: "withdrew", amount: "1,200 GHS", time: "2m ago" },
+    { name: "Amadou", country: "Cameroon", type: "joined", time: "5m ago" },
+    { name: "Zanele", country: "South Africa", type: "withdrew", amount: "2,500 ZAR", time: "8m ago" },
+    { name: "Musa", country: "Nigeria", type: "withdrew", amount: "₦85,000", time: "12m ago" },
+    { name: "Mukasa", country: "Uganda", type: "joined", time: "15m ago" },
+    { name: "Kwame", country: "Ghana", type: "withdrew", amount: "950 GHS", time: "18m ago" },
+    { name: "Fatou", country: "Gabon", type: "withdrew", amount: "45,000 XAF", time: "22m ago" },
+    { name: "Blessing", country: "Nigeria", type: "joined", time: "25m ago" },
+    { name: "Lindiwe", country: "South Africa", type: "withdrew", amount: "1,800 ZAR", time: "30m ago" },
+    { name: "Ousseynou", country: "Cameroon", type: "withdrew", amount: "62,000 XAF", time: "35m ago" }
+];
+
+    let activityIndex = 0;
+
+function cycleActivityFeed() {
+    const feed = document.getElementById('activity-feed');
+    const text = document.getElementById('activity-text');
+    const icon = document.getElementById('act-icon'); // Make sure your icon has this ID
+    const act = ACTIVITIES[activityIndex];
+    
+    if (act.type === "withdrew") {
+        // MONEY ICON FOR WITHDRAWALS
+        icon.className = "fas fa-money-bill-wave text-green-500"; 
+        text.innerHTML = `<span class="gold-text font-bold">${act.name}</span> from ${act.country} just withdrew <span class="text-green-500 font-bold">${act.amount}</span>!`;
+    } else {
+        // USER ICON FOR JOINING
+        icon.className = "fas fa-user-plus text-yellow-500";
+        text.innerHTML = `<span class="gold-text font-bold">${act.name}</span> from ${act.country} just joined GLAMOUR!`;
+    }
+
+    feed.classList.add('show-activity');
+    
+    setTimeout(() => {
+        feed.classList.remove('show-activity');
+        activityIndex = (activityIndex + 1) % ACTIVITIES.length;
+    }, 4000);
+}
+
+// 1. Generate Random GLAM-Ref (Changes every reload)
+function generateRef() {
+    const digits = Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('glam-ref').innerText = `GLAM-${digits}`;
+}
+
+// 2. Toggle the Accordion (Expansion)
+function toggleAccordion() {
+    const content = document.getElementById('accordion-content');
+    const icon = document.getElementById('accordion-icon');
+    if (content.style.maxHeight === "0px" || !content.style.maxHeight) {
+        content.style.maxHeight = "600px";
+        content.style.opacity = "1";
+        icon.style.transform = "rotate(180deg)";
+    } else {
+        content.style.maxHeight = "0px";
+        content.style.opacity = "0";
+        icon.style.transform = "rotate(0deg)";
+    }
+}
+
+// 3. Verify Button: Copies Ref and saves it for success.html
+function verifyAndGo() {
+    const refText = document.getElementById('glam-ref').innerText;
+    
+    // Auto-copy the ID
+    navigator.clipboard.writeText(refText);
+
+    // Add the Ref to the existing user bundle
+    const data = JSON.parse(localStorage.getItem('glamour_pending_user')) || {};
+    data.customRef = refText;
+    localStorage.setItem('glamour_pending_user', JSON.stringify(data));
+
+    // Redirect
+    window.location.href = 'Success.html';
+}
+
+function closeNotice() {
+    // Hide the modal with a fade out
+    const modal = document.getElementById('noticeModal');
+    modal.style.opacity = '0';
+    modal.style.pointerEvents = 'none';
+    
+    // Remove blur from the page content
+    const content = document.getElementById('pageContent');
+    content.classList.remove('blur-md');
+    
+    // Optional: Auto-scroll them to the instruction box
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 500);
+}
+</script>
+</body>
+</html>
