@@ -892,15 +892,17 @@ const countrySelect = document.getElementById('country');
 const fullCountry = countrySelect.options[countrySelect.selectedIndex].text;
 
 // SAVE EVERYTHING - USE THESE EXACT NAMES
-localStorage.setItem('glamour_fullname', document.getElementById('fullname').value);
-localStorage.setItem('glamour_username', document.getElementById('username').value.trim().toLowerCase());
-localStorage.setItem('glamour_email', document.getElementById('email').value.trim().toLowerCase());
-localStorage.setItem('glamour_phone', document.getElementById('phone').value);
-localStorage.setItem('glamour_country', fullCountry); 
-localStorage.setItem('glamour_password', document.getElementById('password').value);
-  regFee: fee,
-  status: 'active'
-});
+// ONLY SAVING THE 4 DETAILS YOU ASKED FOR + DEFAULT AMOUNT
+const userData = {
+    fullName: document.getElementById('fullname').value,
+    username: document.getElementById('username').value.trim().toLowerCase(),
+    email: document.getElementById('email').value.trim().toLowerCase(),
+    phone: document.getElementById('phone').value,
+    amount: "₦14,000" // Your requested default
+};
+
+// This package connects to Review and Success pages
+localStorage.setItem('glamour_pending_user', JSON.stringify(userData));
 
 // 5. Show the overlay and redirect
 const overlay = document.getElementById('successOverlay');
