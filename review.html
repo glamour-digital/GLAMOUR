@@ -246,50 +246,21 @@
     </div>
 
 <script>
-    window.onload = function() {
-    // PULL DATA (Matches the names we used in register.html)
-    const fname = localStorage.getItem('glamour_fullname') || 'N/A';
-    const uname = localStorage.getItem('glamour_username') || 'N/A';
-    const email = localStorage.getItem('glamour_email') || 'N/A';
-    const phone = localStorage.getItem('glamour_phone') || 'N/A';
-    const country = localStorage.getItem('glamour_country') || 'N/A';
-    const pwd = localStorage.getItem('glamour_password') || 'N/A';
+   window.onload = function() {
+    // Pull the bundle from register.html
+    const data = JSON.parse(localStorage.getItem('glamour_pending_user'));
 
-    // PUSH TO SCREEN
-    document.getElementById('view_fullname').innerText = fname;
-    document.getElementById('view_username').innerText = uname;
-    document.getElementById('view_email').innerText = email;
-    document.getElementById('view_phone').innerText = phone;
-    document.getElementById('view_country').innerText = country;
-    
-    // This fixes the N/A Password issue
-    window.rawPassword = pwd; 
-    document.getElementById('view_password').innerText = '••••••••';
+    if (data) {
+        document.getElementById('view_fullname').innerText = data.fullName;
+        document.getElementById('view_username').innerText = data.username;
+        document.getElementById('view_email').innerText = data.email;
+        document.getElementById('view_phone').innerText = data.phone;
+    }
 
-    // BUNDLE FOR SUCCESS PAGE
-    const pendingUser = {
-        fullName: fname,
-        username: uname,
-        email: email,
-        phone: phone,
-        amount: (country === "Ghana" ? "220 GHC" : (country === "Cameroon" ? "13,000 XAF" : "₦14,000"))
-    };
-    localStorage.setItem("glamour_pending_user", JSON.stringify(pendingUser));
-};
-    
-    // Start the activity feed
+    // Start your activity feed
     setTimeout(cycleActivityFeed, 2000);
     setInterval(cycleActivityFeed, 10000);
 };
-
-    function toggleView() {
-        const pField = document.getElementById('view_password');
-        if(pField.innerText === '••••••••') {
-            pField.innerText = window.rawPassword;
-        } else {
-            pField.innerText = '••••••••';
-        }
-    }
 
     // LIVE ACTIVITY LOGIC (Kept exactly as you had it)
   const ACTIVITIES = [
