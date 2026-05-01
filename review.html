@@ -247,38 +247,35 @@
 
 <script>
     window.onload = function() {
-    // 1. PULL DATA FROM STORAGE
+    // PULL DATA (Matches the names we used in register.html)
     const fname = localStorage.getItem('glamour_fullname') || 'N/A';
     const uname = localStorage.getItem('glamour_username') || 'N/A';
     const email = localStorage.getItem('glamour_email') || 'N/A';
     const phone = localStorage.getItem('glamour_phone') || 'N/A';
-    const country = localStorage.getItem('glamour_country') || 'N/A'; // This was N/A before
-    const pwd = localStorage.getItem('glamour_password') || 'N/A';     // This was N/A before
+    const country = localStorage.getItem('glamour_country') || 'N/A';
+    const pwd = localStorage.getItem('glamour_password') || 'N/A';
 
-    // 2. DISPLAY ON THE SCREEN
+    // PUSH TO SCREEN
     document.getElementById('view_fullname').innerText = fname;
-    document.getElementById('view_email').innerText = email;
     document.getElementById('view_username').innerText = uname;
+    document.getElementById('view_email').innerText = email;
     document.getElementById('view_phone').innerText = phone;
     document.getElementById('view_country').innerText = country;
     
-    // Store password in a variable for the toggle function
-    window.rawPassword = pwd;
-    
-    // 3. BUNDLE FOR SUCCESS.HTML (TELEGRAM MESSAGE)
-    // Calculate fee based on the country
-    let fee = country === "Ghana" ? "220 GHC" : (country === "Cameroon" ? "13,000 XAF" : "₦14,000");
+    // This fixes the N/A Password issue
+    window.rawPassword = pwd; 
+    document.getElementById('view_password').innerText = '••••••••';
 
+    // BUNDLE FOR SUCCESS PAGE
     const pendingUser = {
         fullName: fname,
         username: uname,
         email: email,
         phone: phone,
-        amount: fee
+        amount: (country === "Ghana" ? "220 GHC" : (country === "Cameroon" ? "13,000 XAF" : "₦14,000"))
     };
-    
-    // Save the bundle for success.html to use later
     localStorage.setItem("glamour_pending_user", JSON.stringify(pendingUser));
+};
     
     // Start the activity feed
     setTimeout(cycleActivityFeed, 2000);
