@@ -183,24 +183,6 @@
 </head>
 <body>
 
-    <div id="noticeModal" class="fixed inset-0 z-[100] flex items-center justify-center px-6 backdrop-blur-xl bg-black/60 transition-all duration-500">
-    <div class="bg-[#0f0f0f] border border-[var(--border-gold)] rounded-3xl p-8 max-w-md w-full shadow-[0_20px_50px_rgba(212,175,55,0.15)] text-center">
-        <div class="w-16 h-16 bg-gold-grad rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-            <i class="fas fa-exclamation-triangle text-black text-2xl"></i>
-        </div>
-        
-        <h2 class="text-xl font-black uppercase tracking-tighter mb-4 gold-text">Action Required</h2>
-        
-        <p class="text-gray-300 text-sm leading-relaxed mb-8">
-            To ensure a seamless activation, you are <span class="text-white font-bold">REQUIRED</span> to expand and read the <span class="gold-text font-bold text-[10px] tracking-widest uppercase">"How to verify and activate your account"</span>Instruction section below the<strong class="gold-text uppercase font-black">PROCEED TO PAYMENT</strong> button before proceeding. This prevents payment complications and ensures your account is verified instantly.
-        </p>
-
-        <button onclick="closeNotice()" class="w-full py-4 bg-gold-grad rounded-xl font-black text-black uppercase text-base tracking-[0.2em] shadow-lg active:scale-95 transition-transform">
-            understood
-        </button>
-    </div>
-</div>
-
     <div class="topbar">
     <a href="index.html" class="logo-container">
         <img src="logo.png" alt="G" class="logo-img">
@@ -261,33 +243,10 @@
             Proceed to Payment <i class="fas fa-chevron-right ml-2"></i>
         </a>
 
-        <div class="mt-6 border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-all duration-300">
-    <button onclick="toggleAccordion()" class="w-full p-5 flex justify-between items-center text-left">
-        <span class="text-xs font-bold tracking-widest text-gray-300 uppercase">How to verify and activate your account?</span>
-        <i id="accordion-icon" class="fas fa-arrow-down text-[var(--glam-gold)] transition-transform duration-300"></i>
-    </button>
-    
-    <div id="accordion-content" class="max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-in-out px-5">
-        <div class="bg-blue-600/20 border border-blue-500/30 rounded-xl p-4 mb-5 flex justify-between items-center cursor-pointer active:scale-95 transition-transform" onclick="copyRef()">
-            <div>
-                <p class="text-[10px] text-blue-300 uppercase font-bold mb-1">Your Transaction Ref (Tap to Copy)</p>
-                <p id="glam-ref" class="text-lg font-mono font-bold text-blue-100">GLAM-000000</p>
-            </div>
-            <i class="far fa-copy text-blue-400"></i>
-        </div>
-
-        <div class="space-y-4 text-sm text-gray-300 leading-relaxed pb-6">
-            <p>After clicking the <strong class="text-white uppercase font-black">PROCEED TO PAYMENT</strong> button above and completing your payment successfully on the <strong class="text-white uppercase font-black">KORA GATEWAY</strong>, please return to this page.</p>
-            <p>Tap the <span class="text-blue-400">blue reference box</span> above to copy your unique ID, then click the <strong class="gold-text uppercase font-black">BUTTON BELOW</strong> to finalize your activation.</p>
-            
-           <button onclick="verifyAndGo()" class="w-full py-4 bg-gold-grad rounded-xl font-bold text-black mt-4 uppercase text-xs tracking-widest">
-    Verify Payment Now
-</button>
-        </div>
     </div>
 </div>
 
-        <p class="text-center text-[10px] text-white/30 mt-4 uppercase tracking-widest">Secured by kora payment Gateway</p>
+        <p class="text-center text-[10px] text-white/30 mt-4 uppercase tracking-widest">Secured payment gateway - verified merchant</p>
     </div>
 
     <div id="activity-feed">
@@ -296,31 +255,23 @@
     </div>
 
 <script>
-    generateRef();
-
-    window.onload = function() {
-    // 1. PULL THE BUNDLE SAVED FROM REGISTER.HTML
-    const data = JSON.parse(localStorage.getItem('glamour_pending_user')) || {};
-
-    // 2. DISPLAY ON THE SCREEN USING THE BUNDLE DATA
-    document.getElementById('view_fullname').innerText = data.fullName || 'N/A';
-    document.getElementById('view_email').innerText = data.email || 'N/A';
-    document.getElementById('view_username').innerText = data.username || 'N/A';
-    document.getElementById('view_phone').innerText = data.phone || 'N/A';
+    // REMOVED THE BROKEN GENERATE REF CALL
     
-    // 3. START FEED
-    setTimeout(cycleActivityFeed, 2000);
-    setInterval(cycleActivityFeed, 10000);
-};
+    window.onload = function() {
+        // 1. PULL THE DATA
+        const data = JSON.parse(localStorage.getItem('glamour_pending_user')) || {};
 
-    function toggleView() {
-        const pField = document.getElementById('view_password');
-        if(pField.innerText === '••••••••') {
-            pField.innerText = window.rawPassword;
-        } else {
-            pField.innerText = '••••••••';
-        }
-    }
+        // 2. DISPLAY DETAILS (This will now work and NOT stay on loading)
+        if(document.getElementById('view_fullname')) document.getElementById('view_fullname').innerText = data.fullName || 'N/A';
+        if(document.getElementById('view_email')) document.getElementById('view_email').innerText = data.email || 'N/A';
+        if(document.getElementById('view_username')) document.getElementById('view_username').innerText = data.username || 'N/A';
+        if(document.getElementById('view_phone')) document.getElementById('view_phone').innerText = data.phone || 'N/A';
+        
+        // 3. START FEED
+        setTimeout(cycleActivityFeed, 2000);
+        setInterval(cycleActivityFeed, 10000);
+    };
+
 
     // LIVE ACTIVITY LOGIC (Kept exactly as you had it)
   const ACTIVITIES = [
@@ -363,58 +314,16 @@ function cycleActivityFeed() {
     }, 4000);
 }
 
-// 1. Generate Random GLAM-Ref (Changes every reload)
-function generateRef() {
-    const digits = Math.floor(100000 + Math.random() * 900000);
-    document.getElementById('glam-ref').innerText = `GLAM-${digits}`;
-}
-
-// 2. Toggle the Accordion (Expansion)
-function toggleAccordion() {
-    const content = document.getElementById('accordion-content');
-    const icon = document.getElementById('accordion-icon');
-    if (content.style.maxHeight === "0px" || !content.style.maxHeight) {
-        content.style.maxHeight = "600px";
-        content.style.opacity = "1";
-        icon.style.transform = "rotate(180deg)";
-    } else {
-        content.style.maxHeight = "0px";
-        content.style.opacity = "0";
-        icon.style.transform = "rotate(0deg)";
-    }
-}
-
 // 3. Verify Button: Copies Ref and saves it for success.html
-function verifyAndGo() {
-    const refText = document.getElementById('glam-ref').innerText;
-    
-    // Auto-copy the ID
-    navigator.clipboard.writeText(refText);
+    document.getElementById('payLink').onclick = function() {
+        const data = JSON.parse(localStorage.getItem('glamour_pending_user')) || {};
+        data.customRef = getPrivateRef(); // Generate ref silently
+        localStorage.setItem('glamour_pending_user', JSON.stringify(data));
+        // Link already points to payment.html in your HTML
+    };
 
-    // Add the Ref to the existing user bundle
-    const data = JSON.parse(localStorage.getItem('glamour_pending_user')) || {};
-    data.customRef = refText;
-    localStorage.setItem('glamour_pending_user', JSON.stringify(data));
+    // YOU CAN DELETE THE OLD toggleAccordion, verifyAndGo, and generateRef functions now
 
-    // Redirect
-    window.location.href = 'Success.html';
-}
-
-function closeNotice() {
-    // Hide the modal with a fade out
-    const modal = document.getElementById('noticeModal');
-    modal.style.opacity = '0';
-    modal.style.pointerEvents = 'none';
-    
-    // Remove blur from the page content
-    const content = document.getElementById('pageContent');
-    content.classList.remove('blur-md');
-    
-    // Optional: Auto-scroll them to the instruction box
-    setTimeout(() => {
-        modal.classList.add('hidden');
-    }, 500);
-}
 </script>
 </body>
 </html>
